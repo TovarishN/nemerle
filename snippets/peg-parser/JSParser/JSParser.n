@@ -46,6 +46,8 @@ namespace JSEngine {
             FUNCTION                    = "function" spaces;
             THIS                        = "this" spaces;
             RETURN                      = "return" spaces;
+            IF                          = "if" spaces;
+            ELSE                        = "else" spaces;
 
             identifierValue             = letter (letter / decimal_digit)*;
             identifier      : string    = identifierValue spaces;
@@ -74,7 +76,7 @@ namespace JSEngine {
             identifierExpression    : Expression = identifier;
             parenExpression         : Expression = LPAREN expression RPAREN;
             otherExpression         : Expression = literalExpression / thisExpression / functionExpression / identifierExpression / parenExpression;
-
+            
             indexerExpression  : Expression = otherExpression (LBRACE expressions? RBRACE)*;
             callExpression     : Expression = indexerExpression (LPAREN expressions? RPAREN)*;
             memberExpression   : Expression = callExpression (DOT memberExpression)?;
@@ -94,18 +96,27 @@ namespace JSEngine {
             conditionalOrExpression     : Expression = conditionalAndExpression ("||" spaces                conditionalAndExpression)*;
             conditionalExpression       : Expression = conditionalOrExpression (QUEST expression COLON conditionalExpression)?; //right assoc
             assignExpression            : Expression = conditionalExpression (EQ assignExpression)?;  // right assoc 
-
-            expression              : Expression = assignExpression;
+            
+            
+			expression              : Expression = assignExpression;
             expressions             : Expressions = expression (COMMA expressions)?;
 
             emptyStatement      : Statement = SEMICOLON;
             blockStatement      : Statement = LFBRACE statements RFBRACE;
+            returnStatement     : Statement = RETURN expression? SEMICOLON;
+            expressionStatement : Statement = expression SEMICOLON;
+            ifelseBlock			: Statement = blockStatement / returnStatement / expressionStatement;
+            ifelseStatement     : Statement = IF LPAREN conditionalExpression RPAREN ifelseBlock ELSE ifelseBlock;
             varDeclStatement    : Statement = VAR identifier (EQ expression) ? SEMICOLON;
             funDeclStatement    : Statement = FUNCTION identifier LPAREN identifiers? RPAREN blockStatement;
-            expressionStatement : Statement = expression SEMICOLON;
-            returnStatement     : Statement = RETURN expression? SEMICOLON;
-
-            statements          : Statements = (emptyStatement / blockStatement / varDeclStatement / funDeclStatement / expressionStatement /  returnStatement)*;
+			           
+            statements          : Statements = (emptyStatement
+												/ blockStatement
+												/ varDeclStatement
+												/ funDeclStatement
+												/ expressionStatement
+												/ returnStatement
+												/ ifelseStatement)*;
 
             start : Statements          = spaces statements ![Any];
         }
@@ -211,7 +222,7 @@ namespace JSEngine {
                 | _ => Expression.Function([], stmts)
             }
         }
-
+       
         thisExpression(_ : NToken) : Expression {
             Expression.This()
         }
@@ -420,6 +431,28 @@ namespace JSEngine {
                 | _ => Statement.Return(null)
             }
         }
+        
+		//ifelseStatement(_ : NToken
+		//				, _ : NToken
+		//				, Cond : Expression
+		//				, _ : NToken
+		//				, trueStatements : list[Statement]
+		//				//, _ : NToken
+		//				//, falseStatments : list[Statement]
+		//				) : Statement
+		//ifelseStatement(_ : NToken, Cond : Expression, trueStatement : Statement) : Statement
+        
+        ifelseBlock(block : Statement) : Statement
+        {
+        	block;
+        }
+        
+        ifelseStatement(_ : NToken, _ : NToken, Cond : Expression, _ : NToken, trueStatement : Statement, _ : NToken, falseStatments : Statement) : Statement
+		//ifelseStatement(_ : NToken, _ : NToken, Cond : Expression, _ : NToken) : Expression
+		//, trueStatement : Statement) : Statement
+		{
+		  Statement.Conditional(Cond, trueStatement, falseStatments);							  
+		}   
 
         statements(stmts : SCG.List[Statement]) : list[Statement] {
             NList.ToList(stmts)

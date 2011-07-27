@@ -53,3 +53,4 @@ namespace Nemerle.WUI.Reactive
     }
   }
 }
+

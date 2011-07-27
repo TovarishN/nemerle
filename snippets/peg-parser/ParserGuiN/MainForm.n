@@ -1,0 +1,61 @@
+﻿using Nemerle.Collections;
+using Nemerle.Text;
+using Nemerle.Utility;
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+using JSEngine;
+
+namespace ParserGuiN
+{
+  /// <summary>
+  /// Description of MainForm.
+  /// </summary>
+  public partial class MainForm : Form
+  {
+    public this()
+    {
+      InitializeComponent();
+    }
+  
+    private btnParse_Click (_ : object,  _ : System.EventArgs) : void
+    {
+      def engine = JSParser();
+      def result = engine.Parse(txtInput.Text);
+      
+      match (result)
+      {
+        | Some(val) => 
+            def sb = System.Text.StringBuilder();
+            foreach(s in val)
+              s.ToString(sb, "    ", "");
+            txtOutput.Text = sb.ToString();
+       
+        | _ =>	txtOutput.Text = "Can't parse input.";
+      }
+    }
+  }
+}
+/*
+var x1 = "asfasdasdf"; // comment
+x2.sss= 'dfasdf"asdfsd" asds';
+
+x = y.z = t ? a : 0x23 * 7 + 1;
+; //empty statement !
+function Foo(
+    a1 ,
+    b,
+    c) {
+  var s = t ? true : false ? h ? 7 : 8++ : g ? 3 + bar(1, 2).f : 4;
+  var tmp = this.xxx( )(a1, b, c).result;
+  if(true) {return 2;} else {return 4;}
+  return function(k, t) { return ++0x45ff+++1; };
+}
+*/

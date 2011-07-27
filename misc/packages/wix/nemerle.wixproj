@@ -151,7 +151,7 @@
       <SubWCRev>"$(NRoot)\ExternalDependences\SubWCRev.exe"</SubWCRev>
     </PropertyGroup>
     <Exec Command="$(TlbExp) ComInteropHelper.dll" WorkingDirectory="dist\net-3.5\bin\" />
-    <Exec Command="$(SubWCRev) $(NRoot) src\Version.wxi.template src\Version.wxi" WorkingDirectory=".\" />
+    <!--<Exec Command="$(SubWCRev) $(NRoot) src\Version.wxi.template src\Version.wxi" WorkingDirectory=".\" />-->
   </Target>
   <Target Name="AfterBuild">
     <ItemGroup>

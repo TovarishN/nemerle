@@ -1,0 +1,97 @@
+﻿#pragma warning disable 10001
+
+namespace ParserGuiN
+{
+  public partial class MainForm
+  {
+    /// <summary>
+    /// Required designer variable.
+    /// </summary>
+    private  mutable  components : System.ComponentModel.IContainer = null;
+
+    /// <summary>
+    /// Clean up any resources being used.
+    /// </summary>
+    /// <param name="disposing">
+    /// true if managed resources should be disposed; otherwise, false.
+    /// </param>
+    protected override Dispose(disposing : bool) :  void
+    {
+      when (disposing && components != null)
+        components.Dispose();
+
+      base.Dispose(disposing);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private InitializeComponent() :  void
+    {
+      mutable resources = System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+      this.txtInput = System.Windows.Forms.TextBox();
+      this.btnParse = System.Windows.Forms.Button();
+      this.txtOutput = System.Windows.Forms.TextBox();
+      this.SuspendLayout();
+      // 
+      // txtInput
+      // 
+      this.txtInput.Anchor = ((((System.Windows.Forms.AnchorStyles.Top) 
+                  | System.Windows.Forms.AnchorStyles.Left) 
+                  | System.Windows.Forms.AnchorStyles.Right) :> System.Windows.Forms.AnchorStyles);
+      this.txtInput.ImeMode = System.Windows.Forms.ImeMode.Off;
+      this.txtInput.Location = System.Drawing.Point(12,  12);
+      this.txtInput.Multiline = true;
+      this.txtInput.Name = "txtInput";
+      this.txtInput.Size = System.Drawing.Size(440,  281);
+      this.txtInput.TabIndex = 0;
+      this.txtInput.Text = resources.GetString("txtInput.Text");
+      this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Both;		   
+      // 
+      // btnParse
+      // 
+      this.btnParse.Location = System.Drawing.Point(458,  13);
+      this.btnParse.Name = "btnParse";
+      this.btnParse.Size = System.Drawing.Size(103,  23);
+      this.btnParse.TabIndex = 2;
+      this.btnParse.Text = "Parse";
+      this.btnParse.UseVisualStyleBackColor = true;
+      this.btnParse.Anchor = (System.Windows.Forms.AnchorStyles.Top 
+							| System.Windows.Forms.AnchorStyles.Right);
+      this.btnParse.Click += System.EventHandler(this.btnParse_Click);
+      // 
+      // txtOutput
+      // 
+      this.txtOutput.Anchor = ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+                  | System.Windows.Forms.AnchorStyles.Left) 
+                  | System.Windows.Forms.AnchorStyles.Right) :> System.Windows.Forms.AnchorStyles);
+      this.txtOutput.Location = System.Drawing.Point(12,  299);
+      this.txtOutput.Multiline = true;
+      this.txtOutput.Name = "txtOutput";
+      this.txtOutput.Size = System.Drawing.Size(440,  148);
+      this.txtOutput.TabIndex = 3;
+      this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+      // 
+      // MainForm
+      // 
+      this.AutoScaleDimensions = System.Drawing.SizeF(6f,  13f);
+      this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.ClientSize = System.Drawing.Size(573,  459);
+      this.Controls.Add(this.txtOutput);
+      this.Controls.Add(this.btnParse);
+      this.Controls.Add(this.txtInput);
+      this.Name = "MainForm";
+      this.Text = "MainForm";
+      this.ResumeLayout(false);
+      this.PerformLayout();
+    }
+  
+    private mutable btnParse : System.Windows.Forms.Button;
+  
+  
+    private mutable txtOutput : System.Windows.Forms.TextBox;
+  
+    private mutable txtInput : System.Windows.Forms.TextBox;
+  }
+}
