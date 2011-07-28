@@ -29,7 +29,7 @@ namespace Nemerle.Compiler.Utils
     ConvertTypeNameImpl(ty : FixedType, name : string) : string
     {
       if (ty.Equals(_ignoringType))
-        $"<font color='DarkCyan'>$name</font>"
+        $"<font color='DarkCyan'><l>$name</l></font>"
       else
         $"<font color='DarkCyan'><b><hint value='$name' key='$(GetTypeId(ty))' /></b></font>"
     }
