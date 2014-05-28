@@ -39,7 +39,6 @@ namespace WpfHint
 				{
 					var root = HintParser.Parse(value);
 					var fe = HintBuilder.Build(root, _hint);
-					//Grid.SetRow(fe, 0);
 					border.Child = fe;
 				}
 				catch (Exception ex)

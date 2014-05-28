@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System;
-using System.Windows.Input;
 
 namespace WpfHint.UIBuilding
 {
